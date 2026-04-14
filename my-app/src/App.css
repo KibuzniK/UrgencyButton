@@ -1,0 +1,207 @@
+.App {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #a1a1a1;
+}
+
+.water {
+  position: fixed;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  background: rgba(30, 120, 200, 0.55);
+  z-index: 0;
+  transition: height 0.05s linear; /* smooth out the steps */
+}
+
+.Body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 60%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.Title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.Please {
+  align-content: center;
+  font-family: 'Climate Crisis', sans-serif;
+  font-size: 6em;
+  font-variation-settings: 'YEAR' 1979;
+  color: #333333;
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite, 
+             color 1.5s ease-in-out infinite, 
+             yearMorph 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes yearMorph {
+  0%   { font-variation-settings: 'YEAR' 2050; }
+  50%  { font-variation-settings: 'YEAR' 1979; }
+  100% { font-variation-settings: 'YEAR' 2050; }
+}
+
+@keyframes color {
+  0%   { color: #333333; }
+  50%  { color: #ff0000; }
+  100% { color: #333333; }
+}
+
+@keyframes pulse2 {
+  0%   { transform: scale(1.2); }
+  50%  { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+.NoTime {
+  font-family: 'Climate Crisis', cursive;
+  font-size: 2.5em;
+  color: #ff0000;
+  display: inline-block; /* required for transform to work on text */
+  animation: pulse2 1.5s ease-in-out infinite, 
+             color 1.5s ease-in-out infinite, 
+             yearMorph2 1.5s ease-in-out infinite;
+}
+
+@keyframes yearMorph2 {
+  0%   { font-variation-settings: 'YEAR' 1979; }
+  50%  { font-variation-settings: 'YEAR' 2050; }
+  100% { font-variation-settings: 'YEAR' 1979; }
+}
+
+.MainButton {
+  background-color: #ff0000;
+  color: #ffffff;
+  font-size: 1.5em;
+  margin-top: 40px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: shakeRotation 0.4s ease-in-out infinite;
+  z-index: 1;
+}
+.MainButton:hover {
+  border-width: 10px;
+  border-color: #000000;
+  transform: scale(1.1);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes shakeRotation {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(5deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.MainButtonText {
+  font-family: 'Tektur', cursive;
+  font-size: 1.5em;
+  font-variation-settings: 'wght' 500;
+  color: #ffffff;
+}
+
+.SecondaryButton {
+  background-color: transparent;
+  color: #333333;
+  font-size: 1.5em;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+.SecondaryButton:hover {
+  color: #ffffff;
+  animation: shakeRotation2 0.1s ease-in-out infinite;
+}
+
+@keyframes shakeRotation2 {
+  0%  { transform: rotate(5deg); }
+  50%  { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.SecondaryButtonText {
+  font-family: 'Tektur', cursive;
+  font-size: 1em;
+  font-variation-settings: 'wght' 500;
+  color: #333333;
+}
+
+.FloodMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 40px 60px;
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.FloodMessageText {
+  font-family: 'Tektur', cursive;
+  font-size: 10em;
+  font-variation-settings: 'wght' 700;
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.EmptyMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  padding: 40px 60px;
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn2 0.4s ease-in-out;
+}
+
+.EmptyMessageText {
+  color: #333333;
+  font-family: 'Tektur', cursive;
+  font-size: 5em;
+  font-variation-settings: 'wght' 700;
+}
+
+@keyframes fadeIn2 {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  70%  { opacity: 0.5; transform: translate(-50%, -50%) scale(1.2); } 
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
