@@ -6,6 +6,10 @@ function App() {
   const [flooded, setFlooded] = useState(false)
   const [empty, setEmpty] = useState(false)
   const intervalRef = useRef(null)
+  const [mainClicked, setMainClicked] = useState(false)
+  const [mainVisible, setMainVisible] = useState(true)
+  const [mainHeld, setMainHeld] = useState(false)
+
 
   const startRising = (speed) => {
     clearInterval(intervalRef.current)
@@ -38,9 +42,14 @@ function App() {
   }
 
   useEffect(() => {
-    startRising(0.1) // start rising slowly on load
+    startRising(0.2) // start rising slowly on load
     return () => clearInterval(intervalRef.current)
   }, [])
+
+  const handleMainButtonClick = () => {
+    setMainClicked(true)
+    startFalling(2)
+  }
 
   return (
     <>
@@ -52,18 +61,27 @@ function App() {
         <div className="Body">
           <div className="Title">
             <div className="Please">
-              Please!
+              
             </div>
             <div className="NoTime">
-              There is no Time!
+              
             </div>
           </div>
-          <div className="MainButton" onClick={() => startFalling(2)}>
-            <h1 className="MainButtonText">
-              Delete Plug
-            </h1>
-          </div>
-          <div className="SecondaryButton" onClick={() => startRising(2)}>
+          {mainVisible && (
+              <div 
+                className={`MainButton ${mainClicked ? 'MainButton--clicked' : ''} ${mainHeld ? 'MainButton--held' : ''}`}
+                onClick={handleMainButtonClick}
+                onMouseDown={() => setMainHeld(true)}
+                onMouseUp={() => setMainHeld(false)}
+                onMouseLeave={() => setMainHeld(false)}
+                onAnimationEnd={() => setMainVisible(false)}
+              >
+                <h1 className="MainButtonText">Delete</h1>
+                                <h1 className="MainButtonText">Plug</h1>
+
+              </div>
+            )}
+          <div className={`SecondaryButton ${mainClicked ? 'SecondaryButton--Mainlicked' : ''}`} onClick={() => startRising(2)}>
             <h2 className="SecondaryButtonText">
               Cancel
             </h2>

@@ -14,9 +14,30 @@
   bottom: 0;
   left: -50%;
   width: 200%;
-  background: rgba(30, 120, 200, 0.55);
+  background: rgba(30, 120, 200, 0.7);
   z-index: 0;
   transition: height 0.05s linear; /* smooth out the steps */
+}
+
+.wave {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 200%;
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 20"><path fill="%23ffffff" fill-opacity="0.5" d="M0,10 C150,20 350,0 600,10 C850,20 1050,0 1200,10 L1200,20 L0,20 Z"></path></svg>') repeat-x;
+  animation: waveMove 4s linear infinite;
+}
+
+@keyframes waveMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+
+.wave2 {
+  top: -25px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 20"><path fill="%23ffffff" fill-opacity="0.3" d="M0,10 C150,20 350,0 600,10 C850,20 1050,0 1200,10 L1200,20 L0,20 Z"></path></svg>') repeat-x;
+  animation: waveMove2 6s linear infinite;
 }
 
 .Body {
@@ -25,11 +46,22 @@
   align-items: center;
   justify-content: center;
   height: 60%;
-  width: 60%;
+  width: 40%;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  z-index: 0;
+  animation: bounce 1s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.Body:hover {
+  animation: none; /* stop bouncing on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .Title{
@@ -92,23 +124,36 @@
 }
 
 .MainButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #ff0000;
   color: #ffffff;
   font-size: 1.5em;
-  margin-top: 40px;
-  padding: 15px 30px;
+  margin-top: 20px;
+  padding: 40px 40px;
   border: none;
-  border-radius: 5px;
+  border-radius: 100%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.05s ease;
+  font-variation-settings: 'wght' 500;
   animation: shakeRotation 0.4s ease-in-out infinite;
   z-index: 1;
+  box-shadow: 0 10px 0px rgba(0, 0, 0, 0.5);
 }
-.MainButton:hover {
+
+.MainButton--held {
+  background-color: #bc0000;
+  transform: translateY(6px) scale(0.95) !important;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5) !important;
+  transition: transform 0.05s ease, box-shadow 0.05s ease !important;
+}
+
+.MainButton:not(.MainButton--clicked):not(.MainButton--held):hover {
   border-width: 10px;
   border-color: #000000;
   transform: scale(1.1);
-  animation: pulse 0.5s ease-in-out infinite;
+  animation: pulse 0.5s ease-in-out infinite,fontWeightChange 0.5s ease-in-out infinite;
 }
 
 @keyframes shakeRotation {
@@ -120,10 +165,26 @@
 }
 
 .MainButtonText {
+  align-items: center;
+  margin: auto;
   font-family: 'Tektur', cursive;
-  font-size: 1.5em;
-  font-variation-settings: 'wght' 500;
+  font-size: 2.5em;
   color: #ffffff;
+}
+
+@keyframes fontWeightChange {
+  0%   { font-variation-settings: 'wght' 500; }
+  50%  { font-variation-settings: 'wght' 700; }
+  100% { font-variation-settings: 'wght' 500; }
+}
+
+.MainButton--clicked {
+  animation: buttonPanic 0.5s ease-in-out forwards;
+}
+
+@keyframes buttonPanic {
+ 0%   { transform: scale(1); }
+  100% { transform: scale(0) rotate(360deg); }
 }
 
 .SecondaryButton {
@@ -136,7 +197,7 @@
   transition: all 0.3s ease;
   z-index: 1;
 }
-.SecondaryButton:hover {
+.SecondaryButton:not(.SecondaryButton--MainClicked):hover {
   color: #ffffff;
   animation: shakeRotation2 0.1s ease-in-out infinite;
 }
@@ -145,6 +206,15 @@
   0%  { transform: rotate(5deg); }
   50%  { transform: rotate(-5deg); }
   100% { transform: rotate(5deg); }
+}
+
+.SecondaryButton--MainClicked {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .SecondaryButtonText {
@@ -190,7 +260,7 @@
   padding: 40px 60px;
   border-radius: 10px;
   text-align: center;
-  animation: fadeIn2 0.4s ease-in-out;
+  animation: fadeIn2 2s ease-in-out;
 }
 
 .EmptyMessageText {
